@@ -57,7 +57,7 @@ export const TaskMutation = extendType({
         listId: nonNull(intArg()),
       },
       async resolve(_parent, args): Promise<Task> {
-        const tasks = await Task.find()
+        const tasks = await Task.find({ where: { listId: args.listId } })
         const task = new Task()
         const positions = _.map(tasks, (task) => task.position)
         const lastPosition = _.max(positions) || 0
